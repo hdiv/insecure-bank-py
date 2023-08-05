@@ -1,0 +1,150 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <body class="static-tables">
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+        <div class="container-fluid">
+            <!-- TOP BAR -->
+            {% include "partials/nav.html" %}
+
+            <!-- END TOP BAR -->
+            <div class="row">
+                <div class="col-lg-2 col-left">
+                    <!-- LEFT CONTENT -->
+                    <div class="left-content">
+                        <nav id="main-nav" class="main-nav">
+
+                            <h3>MAIN</h3>
+                            <ul class="main-menu">
+                                <li class="active"><a href="/dashboard"><i class="icon ion-ios7-speedometer"></i><span
+                                        class="text">Dashboard</span></a></li>
+                                <li><a href="/activity"><i class="icon ion-clipboard"></i><span class="text">Accounts activity</span></a>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#" class="submenu-toggle"><i class="icon ion-android-note"></i><span
+                                            class="text">Transfers</span></a>
+                                    <ul class="list-unstyled sub-menu collapse">
+                                        <li><a href="/transfer"><span class="text">Make a transfer</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-right ">
+                    <div class="right-content">
+                        <!-- MAIN CONTENT -->
+                        <div class="main-content">
+                            <div class="primary-content">
+                                <div class="heading clearfix">
+                                    <h2>MAKE A TRANSFER</h2>
+                                    <ul class="breadcrumb pull-left">
+                                        <li><i class="icon ion-home"></i><a href="/dashboard">Home</a></li>
+                                        <li><a href="/transfer">Transfers</a></li>
+                                        <li><a href="/transfer">Make a transfer</a></li>
+                                    </ul>
+                                </div>
+                                <!-- RESPONSIVE TABLE -->
+                                <div class="widget">
+                                    <div class="widget-header clearfix">
+                                        <h3>
+                                            <i class="fa fa-list-alt"></i> <span>NEW TRANSFER</span>
+                                        </h3>
+                                    </div>
+                                    <div class="widget-content">
+                                        <form method="POST" class="form-horizontal" role="form" action="/transfer">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">From Account</label>
+                                                <div class="col-md-10">
+                                                    <select name="fromAccount" class="form-control">
+                                                        {% for cash_account in cashAccounts %}
+                                                        <option {% if cash_account.number == transfer.fromAccount %} selected="selected"{% endif %} value="{{ cash_account.number }}" label="{{ cash_account.number }} ({{ cash_account.description }})"/>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Send To</label>
+                                                <div class="col-md-10">
+                                                    <input name="toAccount" value="{{ transfer.toAccount }}" type="text"
+                                                           class="form-control" required="required"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Description</label>
+                                                <div class="col-md-10">
+                                                    <input name="description" value="{{ transfer.description }}"
+                                                           type="text" class="form-control" required="required"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ${error eq true  ? 'has-error has-feedback' : ''}">
+                                                <label class="col-sm-2 control-label">Amount</label>
+                                                <div class="col-sm-10">
+                                                    <div class="input-group">
+                                                        <input name="amount" value="{{ transfer.amount }}" type="text"
+                                                               class="form-control"/>
+                                                        <span class="input-group-addon">&#8364;</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="pull-right">
+                                                        <button type="submit" class="btn btn-primary">Send</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+            </div>
+        </div>
+
+    </div>
+    <div class="left-content-bg col-md-2"></div>
+    <!-- END WRAPPER -->
+    {% include "partials/javascript.html" %}
+
+    </body>
+    <style>
+        table {
+            table-layout: fixed;
+        }
+
+        btn-align-center {
+            text-align: right;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        table th, table td {
+            overflow: hidden;
+        }
+
+        .fa-logo {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            color: #fff;
+            font-family: 'Oswald';
+            font-size: 16px;
+        }
+    </style>
+
+{% endblock %}

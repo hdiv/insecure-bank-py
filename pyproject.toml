@@ -1,0 +1,25 @@
+[project]
+name = "insecure-bank-py"
+version = "0.1.0"
+dependencies = [
+    "django >= 4.2.1, < 4.3",
+    "pycryptodome >= 3.18.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "ruff",
+
+    "pip-tools",
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.setuptools]
+py-modules = []
+
+[tool.black]
+skip-string-normalization = true

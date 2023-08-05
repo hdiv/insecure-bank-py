@@ -1,0 +1,144 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <body class="static-tables">
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+        <div class="container-fluid">
+            <!-- TOP BAR -->
+            {% include "partials/nav.html" %}
+
+            <!-- END TOP BAR -->
+            <div class="row">
+                <div class="col-lg-2 col-left">
+                    <!-- LEFT CONTENT -->
+                    <div class="left-content">
+                        <nav id="main-nav" class="main-nav">
+
+                            <h3>MAIN</h3>
+                            <ul class="main-menu">
+                                <li class="active"><a href="/dashboard"><i class="icon ion-ios7-speedometer"></i><span
+                                        class="text">Dashboard</span></a></li>
+                                <li><a href="/activity"><i class="icon ion-clipboard"></i><span class="text">Accounts activity</span></a>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#" class="submenu-toggle"><i class="icon ion-android-note"></i><span
+                                            class="text">Transfers</span></a>
+                                    <ul class="list-unstyled sub-menu collapse">
+                                        <li><a href="/transfer"><span class="text">Make a transfer</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-right ">
+                    <div class="right-content">
+                        <!-- MAIN CONTENT -->
+                        <div class="main-content">
+                            <div class="primary-content">
+                                <div class="heading clearfix">
+                                    <h2>MAKE A TRANSFER</h2>
+                                </div>
+
+                                <div class="widget-content">
+                                    <h4>DETAILS CONFIRMATION</h4>
+                                    <table id="user" class="table table-bordered table-striped">
+                                        <tbody>
+                                        <tr>
+                                            <td><label class="col-md-4 control-label">From Account</label></td>
+                                            <td>{{ transferbean.fromAccount }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="col-md-4 control-label">Send To</label></td>
+                                            <td>{{ transferbean.toAccount }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="col-md-4 control-label">Description</label></td>
+                                            <td>{{ transferbean.description | safe }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="col-md-4 control-label">Amount</label></td>
+                                            <td>{{ transferbean.amount }} &#8364;</td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="col-md-4 control-label">Fee</label></td>
+                                            <td>{{ transferbean.fee }} &#8364;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- RESPONSIVE TABLE -->
+                                <div class="widget">
+                                    <div class="widget-header clearfix">
+                                        <h3>
+                                            <i class="fa fa-list-alt"></i> <span>Find the number 243 and enter the corresponding code:</span>
+                                        </h3>
+                                    </div>
+                                    <div class="widget-content">
+                                        <form method="POST" class="form-horizontal" role="form"
+                                              action="/transfer/confirm">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Code</label>
+                                                <div class="col-md-1">
+                                                    <input name="code" value="{{ operationConfirm.code }}" type="text"
+                                                           class="form-control" maxlength="4"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-primary" name="action"
+                                                            value="confirm">Confirm
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary" name="action"
+                                                            value="cancel">Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+            </div>
+        </div>
+
+    </div>
+    <div class="left-content-bg col-md-2"></div>
+    <!-- END WRAPPER -->
+    {% include "partials/javascript.html" %}
+
+    </body>
+    <style>
+        table {
+            table-layout: fixed;
+        }
+
+        btn-align-center {
+            text-align: right;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        table th, table td {
+            overflow: hidden;
+        }
+
+        .fa-logo {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            color: #fff;
+            font-family: 'Oswald';
+            font-size: 16px;
+        }
+    </style>
+
+{% endblock %}

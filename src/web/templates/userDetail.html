@@ -1,0 +1,201 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <body class="static-tables">
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+        <div class="container-fluid">
+            <!-- TOP BAR -->
+            {% include "partials/nav.html" %}
+
+            <!-- END TOP BAR -->
+            <div class="row">
+                <div class="col-lg-2 col-left">
+                    <!-- LEFT CONTENT -->
+                    <div class="left-content">
+                        <nav id="main-nav" class="main-nav">
+
+                            <h3>MAIN</h3>
+                            <ul class="main-menu">
+                                <li class="active"><a href="/dashboard"><i class="icon ion-ios7-speedometer"></i><span
+                                        class="text">Dashboard</span></a></li>
+                                <li><a href="/activity"><i class="icon ion-clipboard"></i><span class="text">Accounts activity</span></a>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#" class="submenu-toggle"><i class="icon ion-android-note"></i><span
+                                            class="text">Transfers</span></a>
+                                    <ul class="list-unstyled sub-menu collapse">
+                                        <li><a href="/transfer"><span class="text">Make a transfer</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-right ">
+                    <div class="right-content">
+                        <!-- MAIN CONTENT -->
+                        <div class="main-content">
+                            <div class="primary-content">
+                                <div class="heading clearfix">
+                                    <h2>USER DETAIL</h2>
+                                    <ul class="breadcrumb pull-left">
+                                        <li><i class="icon ion-home"></i><a href="/dashboard">Home</a></li>
+                                        <li><a href="#">User detail</a></li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2">
+                                            <img id="userAvatarImage"
+                                                 src="/dashboard/userDetail/avatar?image={{ account.username }}.png"
+                                                 class="img-thumbnail" alt="avatar"
+                                                 style="border:solid 1px grey;cursor:pointer;"/>
+                                            <form id="userAvatarForm" action="/dashboard/userDetail/avatar/update"
+                                                  method="POST" style="display:none" enctype="multipart/form-data">
+                                                <input id="userAvatarInput" type="file" name="imageFile"/>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <dl class="dl-horizontal">
+                                                <dt>Current Date:</dt>
+                                                <dd>{% now "d-m-Y" %}</dd>
+                                                <dt>Register Date:</dt>
+                                                <dd>20-09-2014</dd>
+                                                <dt>Username:</dt>
+                                                <dd>{{ account.username }}</dd>
+                                                <dt>Name:</dt>
+                                                <dd>{{ account.name }}</dd>
+                                                <dt>Surname:</dt>
+                                                <dd>{{ account.surname }}</dd>
+                                                <dt>Account Type:</dt>
+                                                <dd>Personal</dd>
+                                                <dt>Account Status:</dt>
+                                                <dd><span class="label label-success">ACTIVE</span></dd>
+                                                <dt style="padding: 10px 0px 10px 0px;">Digital Certificate:</dt>
+                                                <dd style="padding: 10px 0px 10px 0px;">
+                                                    <form method="POST" class="form-horizontal" role="form"
+                                                          action="/dashboard/userDetail/certificate">
+                                                        <input type="hidden" name="username"
+                                                               value="{{ account.username }}"/>
+                                                        <button type="submit">Download</button>
+                                                    </form>
+                                                </dd>
+                                                <dt style="padding: 10px 0px 10px 0px;">Malicious Certificate:</dt>
+                                                <dd style="padding: 10px 0px 10px 0px;">
+                                                    <form method="POST" class="form-horizontal" role="form"
+                                                          action="/dashboard/userDetail/maliciouscertificate">
+                                                        <input type="hidden" name="username"
+                                                               value="{{ accountMalicious.username }}"/>
+                                                        <button type="submit">Download</button>
+                                                    </form>
+                                                </dd>
+                                                <dt style="padding: 10px 0px 10px 0px;">Upload
+                                                    new certificate:
+                                                </dt>
+                                                <dd style="padding: 10px 0px 10px 0px;">
+
+                                                    <form action="/dashboard/userDetail/newcertificate" method="POST"
+                                                          enctype="multipart/form-data">
+                                                        <input id="file" type="file" name="file"/>
+
+                                                        <button type="submit" style="margin-top: 5px;">Upload</button>
+                                                    </form>
+                                                </dd>
+
+                                                <dt>Credit cards:</dt>
+                                                <br>
+                                                <dd>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Cash Account</th>
+                                                                <th>Description</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for creditAccount in creditAccounts %}
+                                                                <tr>
+                                                                    <td>
+                                                                        {% if 'Visa' in creditAccount.description %}
+                                                                        <img id="card-ico"
+                                                                             src="/dashboard/userDetail/creditCardImage?url=creditCards/visa.png"
+                                                                             class="img-thumbnail" alt="card"
+                                                                             style="border:solid 1px grey;cursor:pointer;"/>
+                                                                        {% elif 'AmEx' in creditAccount.description %}
+                                                                        <img id="card-ico"
+                                                                             src="/dashboard/userDetail/creditCardImage?url=creditCards/amex.png"
+                                                                             class="img-thumbnail" alt="card"
+                                                                             style="border:solid 1px grey;cursor:pointer;"/>
+                                                                        {% elif 'Master' in creditAccount.description %}
+                                                                        <img id="card-ico"
+                                                                             src="/dashboard/userDetail/creditCardImage?url=creditCards/mastercard.png"
+                                                                             class="img-thumbnail" alt="card"
+                                                                             style="border:solid 1px grey;cursor:pointer;"/>
+                                                                        {% endif %}
+                                                                        {{ creditAccount.number }}
+                                                                    </td>
+                                                                    <td>{{ creditAccount.description }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+            </div>
+        </div>
+
+
+    </div>
+    <div class="left-content-bg col-md-2"></div>
+    <!-- END WRAPPER -->
+    {% include "partials/javascript.html" %}
+
+    <script>
+        $(function () {
+            $('#userAvatarImage').click(function () {
+                $('#userAvatarInput').click();
+            });
+            $('#userAvatarInput').change(function () {
+                $('#userAvatarForm').submit();
+            });
+        });
+    </script>
+    </body>
+    <style>
+        table {
+            table-layout: fixed;
+        }
+
+        table th, table td {
+            overflow: hidden;
+        }
+
+        .fa-logo {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            color: #fff;
+            font-family: 'Oswald';
+            font-size: 16px;
+        }
+
+        .top-bar .logged-user {
+            padding-top: 3px;
+        }
+    </style>
+
+{% endblock %}

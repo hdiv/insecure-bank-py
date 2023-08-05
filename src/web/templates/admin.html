@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <body class="static-tables">
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+        <div class="container-fluid">
+            <!-- TOP BAR -->
+            {% include "partials/nav.html" %}
+
+            <!-- END TOP BAR -->
+            <div class="row">
+                <div class="col-lg-2 col-left">
+                    <!-- LEFT CONTENT -->
+                    <div class="left-content">
+                        <nav id="main-nav" class="main-nav">
+
+                            <h3>MAIN</h3>
+                            <ul class="main-menu">
+                                <li class="active"><a href="/dashboard"><i class="icon ion-ios7-speedometer"></i><span
+                                        class="text">Dashboard</span></a></li>
+                                <li><a href="/activity"><i class="icon ion-clipboard"></i><span class="text">Accounts activity</span></a>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#" class="submenu-toggle"><i class="icon ion-android-note"></i><span
+                                            class="text">Transfers</span></a>
+                                    <ul class="list-unstyled sub-menu collapse">
+                                        <li><a href="/transfer"><span class="text">Make a transfer</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="active"><a href="/admin"><i class="icon ion-android-contact"></i><span
+                                        class="text">Admin</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-right ">
+                    <div class="right-content">
+                        <!-- MAIN CONTENT -->
+                        <div class="main-content">
+                            <div class="primary-content">
+                                <div class="heading clearfix">
+                                    <h2>ADMIN PANEL</h2>
+                                    <ul class="breadcrumb pull-left">
+                                        <li><i class="icon ion-home"></i><a href="/dashboard">Home</a></li>
+                                        <li><a href="#">Admin</a></li>
+                                    </ul>
+                                </div>
+                                <!-- RESPONSIVE TABLE -->
+                                <div class="widget">
+                                    <div class="widget-header clearfix">
+                                        <h3>
+                                            <i class="fa fa-list-alt"></i> <span>Bank Users</span>
+                                        </h3>
+                                    </div>
+                                    <div class="widget-content">
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                <tr>
+                                                    <th>Username</th>
+                                                    <th>Name</th>
+                                                    <th>Surname</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for account in accounts %}
+                                                <tr>
+                                                    <td>{{ account.username }}</td>
+                                                    <td>{{ account.name }}</td>
+                                                    <td>{{ account.surname }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END RESPONSIVE TABLE -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+            </div>
+        </div>
+
+    </div>
+    <div class="left-content-bg col-md-2"></div>
+    <!-- END WRAPPER -->
+    {% include "partials/javascript.html" %}
+
+    </body>
+    <style>
+        table {
+            table-layout: fixed;
+        }
+
+        table th, table td {
+            overflow: hidden;
+        }
+
+        .fa-logo {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            color: #fff;
+            font-family: 'Oswald';
+            font-size: 16px;
+        }
+
+        .top-bar .logged-user {
+            padding-top: 3px;
+        }
+    </style>
+
+{% endblock %}
