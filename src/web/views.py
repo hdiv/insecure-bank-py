@@ -7,7 +7,7 @@ from datetime import date
 from Crypto.Cipher import DES
 from Crypto.Util.Padding import pad
 from django.conf import settings
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.forms import ModelForm
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -69,6 +69,14 @@ class LoginView(TemplateView):
         else:
             login(request, user)
             return redirect("/dashboard")
+
+
+class LogoutView(View):
+    http_method_names = ["get"]
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect("/login")
 
 
 class AdminView(TemplateView):

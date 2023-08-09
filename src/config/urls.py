@@ -20,7 +20,8 @@ from web import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login", views.LoginView.as_view(), name="doLogin"),
+    path("login", views.LoginView.as_view(), name="login"),
+    path("logout", views.LogoutView.as_view(), name="logout"),
     path("", views.DashboardView.as_view(), name="home"),
     path("admin", views.AdminView.as_view(), name="admin"),
     path("activity", views.ActivityView.as_view(), name="activity"),
